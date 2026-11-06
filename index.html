@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="词迹">
+<meta name="description" content="按遗忘曲线安排复习的背单词与英文阅读工具，离线可用，无广告无账号。">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="styles.css">
+<title>词迹 · 背单词与阅读</title>
+</head>
+<body>
+<div class="app" id="app">
+
+  <header class="topbar" id="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">词</div>
+      <div class="brand-text">
+        <h1 id="pageTitle">今天</h1>
+        <div class="brand-sub" id="pageSub">按遗忘曲线复习</div>
+      </div>
+    </div>
+    <button class="deck-chip" id="deckChipBtn" type="button" aria-label="切换词库">
+      <span id="deckChipName">大学四级</span><span class="chev">▾</span>
+    </button>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== 学习 ===== -->
+    <section class="page" id="page-study">
+      <div class="metrics">
+        <div class="metric"><b id="mDone">0</b><span>今日已学</span></div>
+        <div class="metric"><b id="mLeft">0</b><span>待学</span></div>
+        <div class="metric"><b id="mStreak">0</b><span>连续天数</span></div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress"><i id="todayBar"></i></div>
+        <div class="progress-label"><span id="progressText">今日进度 0%</span><span id="progressRemain"></span></div>
+      </div>
+      <div id="cardArea"></div>
+      <div class="study-footer">
+        <button class="linkish" id="startStudyBtn" type="button">开始 / 继续今日任务</button>
+        <button class="linkish" id="goReadingBtn" type="button">去读一篇 →</button>
+      </div>
+    </section>
+
+    <!-- ===== 阅读 ===== -->
+    <section class="page" id="page-reading" hidden>
+      <div class="seg" id="readTabs">
+        <button class="seg-btn active" data-tab="classic" type="button">经典</button>
+        <button class="seg-btn" data-tab="news" type="button">新闻</button>
+        <button class="seg-btn" data-tab="mine" type="button">我的</button>
+      </div>
+      <div id="readBody"></div>
+    </section>
+
+    <!-- ===== 统计 ===== -->
+    <section class="page" id="page-stats" hidden>
+      <div id="statsBody"></div>
+    </section>
+
+    <!-- ===== 设置 ===== -->
+    <section class="page" id="page-settings" hidden>
+      <div id="settingsBody"></div>
+    </section>
+
+    <!-- ===== 阅读器 ===== -->
+    <section class="reader" id="reader" hidden>
+      <header class="reader-top">
+        <button class="icon-btn" id="readerBack" type="button" aria-label="返回">←</button>
+        <div class="reader-head-text">
+          <div class="reader-title" id="readerTitle">标题</div>
+          <div class="reader-meta" id="readerMeta"></div>
+        </div>
+        <button class="icon-btn" id="readerFontBtn" type="button" aria-label="字号">A+</button>
+      </header>
+      <div class="reader-tools">
+        <button class="pill" id="toggleAllZh" type="button">整篇译文：关</button>
+        <span class="pill static" id="readerLevelBadge">难度</span>
+      </div>
+      <article class="article" id="articleBody"></article>
+      <div class="reader-foot" id="ttsBar">
+        <button class="tts-btn" id="ttsPlay" type="button" aria-label="播放">▶</button>
+        <button class="tts-btn small" id="ttsPrev" type="button" aria-label="上一句">◀︎</button>
+        <button class="tts-btn small" id="ttsNext" type="button" aria-label="下一句">▶︎</button>
+        <select id="ttsRate" aria-label="语速">
+          <option value="0.8">0.8×</option>
+          <option value="1" selected>1.0×</option>
+          <option value="1.2">1.2×</option>
+        </select>
+        <select id="ttsVoice" aria-label="音色"></select>
+      </div>
+    </section>
+
+    <!-- ===== 底部导航 ===== -->
+    <nav class="tabbar" id="tabbar">
+      <button class="tab active" data-page="study" type="button"><i>学</i><span>学习</span></button>
+      <button class="tab" data-page="reading" type="button"><i>读</i><span>阅读</span></button>
+      <button class="tab" data-page="stats" type="button"><i>统</i><span>统计</span></button>
+      <button class="tab" data-page="settings" type="button"><i>设</i><span>设置</span></button>
+    </nav>
+  </main>
+</div>
+
+<!-- 底部弹层：单词卡 / 面板 -->
+<div class="sheet-mask" id="sheetMask" hidden>
+  <div class="sheet" id="sheet"></div>
+</div>
+
+<!-- 通用对话框 -->
+<div class="modal-mask" id="modalMask" hidden>
+  <div class="modal" id="modal"></div>
+</div>
+
+<script src="data-decks.js"></script>
+<script src="data-articles.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
